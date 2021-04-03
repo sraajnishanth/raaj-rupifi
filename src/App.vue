@@ -1,10 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <loader></loader>
+    <side-nav></side-nav>
   </div>
   <router-view />
 </template>
+
+<script>
+  import SideNav from "./components/SideNav.vue";
+  import Loader from "./components/Loader.vue";
+
+  export default {
+    components: { SideNav, Loader }
+  }
+</script>
+
 
 <style>
 #app {

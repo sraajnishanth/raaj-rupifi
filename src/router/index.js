@@ -13,11 +13,22 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      authRequired: true
+    },
   },
+  
   {
     path: "/login",
     name: "Login",
     component: Login,
+  },
+
+  {
+    path: "/register",
+    name: "Register",
+    component: () =>
+      import("../views/Register.vue"),
   },
 
   {
@@ -52,7 +63,7 @@ router.beforeEach((to, from, next) => {
       // If user obj does not exist --> redirect to login page
       if (!user) {
         alert("You must be logged in to see this page");
-        next({ name: "Home" });
+        next({ name: "Login" });
       } else {
         // store.commit("user/SET_USER", user);
         user.getIdToken().then(token => {

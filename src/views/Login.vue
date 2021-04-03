@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <h2>Login</h2>
+      <h2>Admin - Login</h2>
     </div>
     <div class="row">
       <form class="col s12" @submit.prevent="login">
@@ -71,7 +71,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           __this.$store.commit("SET_SHOW_LOADER", false);
-          this.$router.push("/create-game");
+          this.$router.push("/");
         })
         .catch(error => {
           __this.$store.commit("SET_SHOW_LOADER", false);
