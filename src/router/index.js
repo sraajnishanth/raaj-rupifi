@@ -60,6 +60,7 @@ router.beforeEach((to, from, next) => {
       // If user obj does not exist --> redirect to login page
       if (!user) {
         // alert("You must be logged in to see this page");
+        window.M.toast({html: "You must be logged in to see this page"});
         next({ name: "Login" });
       } else {
         // store.commit("user/SET_USER", user);

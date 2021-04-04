@@ -9,8 +9,6 @@
     </div>
 
     <addCustomer></addCustomer>
-
-    <!-- <customerDetails></customerDetails> -->
     
     <div class="row" v-if="tableRows.length">
       <div class="col">
@@ -36,7 +34,6 @@
 import DataTable from "@/components/DataTable/DataTable";
 
 import AddCustomer from "@/components/AddCustomer";
-// import CustomerDetails from "@/components/CustomerDetails"
 
 import Customer from '@/controller/customer';
 
@@ -45,7 +42,6 @@ export default {
   components: {
     datatable: DataTable,
     addCustomer: AddCustomer,
-    // customerDetails: CustomerDetails
   },
   data() {
     return {
