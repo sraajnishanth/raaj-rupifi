@@ -9,6 +9,8 @@
     </div>
 
     <addCustomer></addCustomer>
+
+    <addressList></addressList>
     
     <div class="row">
       <div class="col">
@@ -20,6 +22,7 @@
           :customButtons="customButtons"
           :exportable="false"
 	        :printable="false"
+          v-on:row-click="onRowClick"
         ></datatable>
       </div>
     </div>
@@ -32,13 +35,16 @@
 import DataTable from "@/components/DataTable/DataTable";
 
 import AddCustomer from "@/components/AddCustomer";
+import AddressList from "@/components/AddressList"
+
 import Customer from '@/controller/customer';
 
 export default {
   name: "Home",
   components: {
     datatable: DataTable,
-    addCustomer: AddCustomer
+    addCustomer: AddCustomer,
+    addressList: AddressList
   },
   data() {
     return {
@@ -70,7 +76,7 @@ export default {
         }
       ],
       
-      customButtons: [],
+      customButtons: []
     };
   },
 
@@ -100,11 +106,16 @@ export default {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             let cd = doc.data();
-            let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender};
+            let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender, customerDetails: cd};
             __this.tableRows.push(cdFormatted);
         });
       });       
-    }
+    },
+
+    onRowClick(row) {
+      console.log(row);
+      this.emitter.emit("SHOW_ADDRESS_LIST", row.customerDetails);      
+    },
   }
 };
 </script>

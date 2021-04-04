@@ -192,6 +192,7 @@ export default {
       // Open the customer details modal
       __this.modalInstance.open();
     });
+    
     setTimeout(() => __this.tabsInstance.updateTabIndicator(), 2000);
 
   },
