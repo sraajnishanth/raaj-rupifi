@@ -76,21 +76,34 @@ export default {
 
   mounted() {
     let __this = this;
-    let customer = new Customer();
-    customer.getAllCustomers(querySnapshot => {
-      querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-          let cd = doc.data();
-          let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender};
-          __this.tableRows.push(cdFormatted);
-      });
+    // Fetch the list of customers
+    this.refreshCustomerList();
+
+    // Refresh the list whenever a new customer has been added
+    this.emitter.on("ADDED_NEW_CUSTOMER", data => {
+      if(data) {
+        __this.refreshCustomerList();
+      }
     });
   },
 
   methods: {
     addNewCustomer: function() {
       this.emitter.emit("ADD_NEW_CUSTOMER", 'open-modal');
+    },
+
+    refreshCustomerList() {
+      let __this = this;
+      let customer = new Customer();
+      // Get all existing customers
+      customer.getAllCustomers(querySnapshot => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            let cd = doc.data();
+            let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender};
+            __this.tableRows.push(cdFormatted);
+        });
+      });       
     }
   }
 };

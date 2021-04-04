@@ -68,9 +68,9 @@
               <div class="input-field col m6 s12">
               <select class="validate" required v-model="customerData.gender">
                 <option value="" disabled selected>Choose your option</option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-                <option value="na">Don't wish to specify</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Don't wish to specify">Don't wish to specify</option>
               </select>
               <label>Gender</label>
             </div>
@@ -216,8 +216,38 @@ export default {
     },
 
     submitDetails: function() {
+      let __this = this;
       let customer = new Customer();
-      customer.addDetails(this.customerData);
+
+      customer.addDetails(
+        this.customerData,
+        function(docRef) {
+          if(docRef.id) {
+            __this.emitter.emit("ADDED_NEW_CUSTOMER", __this.customerData);
+            __this.modalInstance.close();
+            __this.clearModalData();
+          }
+        },
+        function(error) {
+          __this.modalInstance.close();
+          alert(error);
+        }
+      );
+    },
+
+    clearModalData() {
+        this.customerData = {
+            firstName: null,
+            lastName: null,
+            password: null,
+            userName: null,
+            email: null,
+            phoneNumber: null,
+            age: null,
+            gender: null,
+            primaryAddress: null,
+            secondaryAddress: null,
+        };
     }
   },
 

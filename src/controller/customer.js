@@ -9,13 +9,15 @@ class Customer {
     }
 
 
-    addDetails(customerData) {
+    addDetails(customerData, cb, errCb) {
+        let successCb = cb;
+        let errorCb = errCb;
         this.db.collection("customers").add(customerData)
         .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
+            successCb(docRef);
         })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            errorCb(error);
         });
         
     }
