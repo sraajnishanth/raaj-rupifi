@@ -7,14 +7,13 @@
 </template>
 
 <script>
-  import SideNav from "./components/SideNav.vue";
-  import Loader from "./components/Loader.vue";
+import SideNav from "./components/SideNav.vue";
+import Loader from "./components/Loader.vue";
 
-  export default {
-    components: { SideNav, Loader }
-  }
+export default {
+  components: { SideNav, Loader },
+};
 </script>
-
 
 <style>
 #app {

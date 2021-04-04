@@ -62,7 +62,6 @@
   </div>
 </template>
 <script>
-
 import firebase from "firebase";
 
 export default {
@@ -71,7 +70,7 @@ export default {
     return {
       email: null,
       password: null,
-      username: null
+      username: null,
     };
   },
   methods: {
@@ -82,19 +81,19 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(userCred => {
+        .then((userCred) => {
           userCred.user
             .updateProfile({
-              displayName: __this.username
+              displayName: __this.username,
             })
             .then(
-              function() {
+              function () {
                 __this.$store.commit("SET_SHOW_LOADER", false);
                 __this.$router.push({
-                  name: "Home"
+                  name: "Home",
                 });
               },
-              function(error) {
+              function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -109,10 +108,10 @@ export default {
               }
             );
         })
-        .catch(error => {
+        .catch((error) => {
           alert(error.message);
         });
-    }
-  }
+    },
+  },
 };
 </script>

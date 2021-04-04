@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     userToken: null,
-    showLoader: false
+    showLoader: false,
   },
   mutations: {
     SET_USER_TOKEN(state, value) {
@@ -12,7 +12,7 @@ export default createStore({
 
     SET_SHOW_LOADER(state, value) {
       state.showLoader = value;
-    }
+    },
   },
   actions: {},
   modules: {},

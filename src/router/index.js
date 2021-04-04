@@ -6,18 +6,16 @@ import NotFound from "../views/NotFound.vue";
 import firebase from "firebase";
 import store from "../store";
 
-
-
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
     meta: {
-      authRequired: true
+      authRequired: true,
     },
   },
-  
+
   {
     path: "/login",
     name: "Login",
@@ -27,8 +25,7 @@ const routes = [
   {
     path: "/register",
     name: "Register",
-    component: () =>
-      import("../views/Register.vue"),
+    component: () => import("../views/Register.vue"),
   },
 
   {
@@ -45,7 +42,7 @@ const routes = [
   {
     path: "/:catchAll(.*)",
     component: NotFound,
-  }
+  },
 ];
 
 const router = createRouter({
@@ -57,16 +54,16 @@ router.beforeEach((to, from, next) => {
   // Always check if the user is logged in
   // (whenever a route explicitly specifies that authentication is required
   // using the "authRequired" key)
-  if (to.matched.some(record => record.meta.authRequired)) {
+  if (to.matched.some((record) => record.meta.authRequired)) {
     // Load user
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       // If user obj does not exist --> redirect to login page
       if (!user) {
         alert("You must be logged in to see this page");
         next({ name: "Login" });
       } else {
         // store.commit("user/SET_USER", user);
-        user.getIdToken().then(token => {
+        user.getIdToken().then((token) => {
           store.commit("SET_USER_TOKEN", token);
         });
 
@@ -75,11 +72,11 @@ router.beforeEach((to, from, next) => {
     });
   } else {
     // Path does not required auth - Still we check the user
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       // If user exist (is logged in) --> store in state.
       if (user) {
         // store.commit("user/SET_USER", user);
-        user.getIdToken().then(token => {
+        user.getIdToken().then((token) => {
           store.commit("SET_USER_TOKEN", token);
         });
         next();

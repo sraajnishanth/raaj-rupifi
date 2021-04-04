@@ -57,14 +57,14 @@ export default {
   data() {
     return {
       sideNaveInstance: null,
-      linksArray: []
+      linksArray: [],
     };
   },
 
   computed: {
     userToken() {
       return this.$store.state.userToken;
-    }
+    },
   },
 
   mounted() {
@@ -72,12 +72,12 @@ export default {
     this.linksArray = [
       {
         to: "/",
-        label: "Customers"
+        label: "Customers",
       },
       {
         to: "/",
-        label: "User Profile"
-      }
+        label: "User Profile",
+      },
     ];
     // Initialize the side nav bar
     let elem = document.querySelector(".sidenav");
@@ -99,13 +99,13 @@ export default {
           __this.$store.commit("SET_USER_TOKEN", null);
           this.$router.push("/");
         })
-        .catch(error => {
+        .catch((error) => {
           __this.$store.commit("SET_SHOW_LOADER", false);
           alert(error.message);
           __this.$router.push("/");
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

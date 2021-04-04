@@ -58,12 +58,12 @@ export default {
   name: "Loader",
 
   props: {
-    title: String
+    title: String,
   },
 
   data() {
     return {
-      instance: {}
+      instance: {},
     };
   },
 
@@ -71,7 +71,7 @@ export default {
     var elems = document.querySelectorAll(".loader-modal");
     window.M.Modal.init(elems, {
       opacity: 0.5,
-      dismissible: false
+      dismissible: false,
     });
     this.instance = window.M.Modal.getInstance(
       document.querySelector(".loader-modal")
@@ -81,20 +81,20 @@ export default {
   computed: {
     showLoader() {
       return this.$store.state.showLoader;
-    }
+    },
   },
 
   methods: {},
 
   watch: {
-    showLoader: function(val) {
+    showLoader: function (val) {
       if (val == true) {
         this.instance.open();
       } else {
         this.instance.close();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

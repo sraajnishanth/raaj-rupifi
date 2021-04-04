@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
@@ -73,11 +73,11 @@ export default {
           __this.$store.commit("SET_SHOW_LOADER", false);
           this.$router.push("/");
         })
-        .catch(error => {
+        .catch((error) => {
           __this.$store.commit("SET_SHOW_LOADER", false);
           alert(error.message);
         });
-    }
-  }
+    },
+  },
 };
 </script>
