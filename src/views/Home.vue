@@ -43,16 +43,48 @@ export default {
   data() {
     return {
       tableRows: [],
-      tableColumns: [],
-      customButtons: [
+      tableColumns: [
+        {
+          label: "ID",
+          field: "id",
+          numeric: true,
+          html: false
+        },
+        {
+          label: "Name",
+          field: "name",
+          numeric: false,
+          html: false
+        },
+        {
+          label: "Age",
+          field: "age",
+          numeric: true,
+          html: false
+        },
+        {
+          label: "Gender",
+          field: "gender",
+          numeric: false,
+          html: false
+        }
       ],
+      
+      customButtons: [],
     };
   },
 
   mounted() {
+    let __this = this;
     let customer = new Customer();
-    customer.getAllCustomers(data => {
-      console.log(data);
+    customer.getAllCustomers(querySnapshot => {
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          let cd = doc.data();
+          let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender};
+          __this.tableRows.push(cdFormatted);
+      });
     });
   },
 

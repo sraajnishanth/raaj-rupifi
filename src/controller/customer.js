@@ -22,11 +22,9 @@ class Customer {
 
     getAllCustomers(cb) {
         this.db.collection("customers").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-            });
             cb(querySnapshot);
+        }).catch((error) => {
+            console.error("Error fetching documents: ", error);``
         });
     }
 }
