@@ -10,9 +10,9 @@
 
     <addCustomer></addCustomer>
 
-    <addressList></addressList>
+    <!-- <customerDetails></customerDetails> -->
     
-    <div class="row">
+    <div class="row" v-if="tableRows.length">
       <div class="col">
         <!-- <HelloWorld msg="Welcome to Your Vue.js App" />     -->
         <datatable
@@ -22,6 +22,7 @@
           :customButtons="customButtons"
           :exportable="false"
 	        :printable="false"
+          :perPage="[3, 5, 10]"
           v-on:row-click="onRowClick"
         ></datatable>
       </div>
@@ -35,7 +36,7 @@
 import DataTable from "@/components/DataTable/DataTable";
 
 import AddCustomer from "@/components/AddCustomer";
-import AddressList from "@/components/AddressList"
+// import CustomerDetails from "@/components/CustomerDetails"
 
 import Customer from '@/controller/customer';
 
@@ -44,7 +45,7 @@ export default {
   components: {
     datatable: DataTable,
     addCustomer: AddCustomer,
-    addressList: AddressList
+    // customerDetails: CustomerDetails
   },
   data() {
     return {
@@ -82,6 +83,8 @@ export default {
 
   mounted() {
     let __this = this;
+     __this.$store.commit("SET_SHOW_LOADER", true);
+
     // Fetch the list of customers
     this.refreshCustomerList();
 
@@ -103,18 +106,19 @@ export default {
       let customer = new Customer();
       // Get all existing customers
       customer.getAllCustomers(querySnapshot => {
+        __this.tableRows = [];
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             let cd = doc.data();
             let cdFormatted = {'id': doc.id, 'name': `${cd.firstName} ${cd.lastName}`, 'age':cd.age, 'gender':cd.gender, customerDetails: cd};
             __this.tableRows.push(cdFormatted);
         });
+         __this.$store.commit("SET_SHOW_LOADER", false);
       });       
     },
 
     onRowClick(row) {
-      console.log(row);
-      this.emitter.emit("SHOW_ADDRESS_LIST", row.customerDetails);      
+      this.emitter.emit("SHOW_CUSTOMER_DETAILS", row.customerDetails);      
     },
   }
 };

@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "AddressList",
+  name: "CustomerDetails",
 
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
       document.querySelector(".address-list-modal")
     );
 
-    this.emitter.on("SHOW_ADDRESS_LIST", data => {
+    this.emitter.on("SHOW_CUSTOMER_DETAILS", data => {
       __this.currentCustomer = data;
       // Open the customer details modal
       __this.modalInstance.open();

@@ -73,11 +73,7 @@ export default {
       {
         to: "/",
         label: "Customers",
-      },
-      {
-        to: "/",
-        label: "User Profile",
-      },
+      }
     ];
     // Initialize the side nav bar
     let elem = document.querySelector(".sidenav");
@@ -97,12 +93,12 @@ export default {
         .then(() => {
           __this.$store.commit("SET_SHOW_LOADER", false);
           __this.$store.commit("SET_USER_TOKEN", null);
-          this.$router.push("/");
+          this.$router.push("/login");
         })
         .catch((error) => {
           __this.$store.commit("SET_SHOW_LOADER", false);
-          alert(error.message);
-          __this.$router.push("/");
+          window.M.toast({html: error.message});
+          __this.$router.push("/login");
         });
     },
   },
